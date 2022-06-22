@@ -1,9 +1,9 @@
 import robot from 'robotjs';
 
-export const moveRight = (x: number, y: number, coord: string) => new Promise((resolve) => {
+export const moveRight = (x: number, y: number, coord: number) => new Promise((resolve) => {
   let c = 0;
   const time = setInterval(() => {
-    c += (+coord / 10);
+    c += coord / 10;
     robot.dragMouse(x + c, y);
 
     if (c === +coord) {
@@ -13,10 +13,10 @@ export const moveRight = (x: number, y: number, coord: string) => new Promise((r
   }, 100);
 });
 
-export const moveDown = (x: number, y: number, coord: string) => new Promise((resolve) => {
+export const moveDown = (x: number, y: number, coord: number) => new Promise((resolve) => {
   let c = 0;
   const time = setInterval(() => {
-    c += (+coord / 10);
+    c += coord / 10;
     robot.dragMouse(x, y + c);
 
     if (c === +coord) {
@@ -26,10 +26,10 @@ export const moveDown = (x: number, y: number, coord: string) => new Promise((re
   }, 100);
 });
 
-export const moveLeft = (x: number, y: number, coord: string) => new Promise((resolve) => {
+export const moveLeft = (x: number, y: number, coord: number) => new Promise((resolve) => {
   let c = 0;
   const time = setInterval(() => {
-    c += (+coord / 10);
+    c += coord / 10;
     robot.dragMouse(x - c, y);
 
     if (c === +coord) {
@@ -39,10 +39,10 @@ export const moveLeft = (x: number, y: number, coord: string) => new Promise((re
   }, 100);
 });
 
-export const moveUp = (x: number, y: number, coord: string) => new Promise((resolve) => {
+export const moveUp = (x: number, y: number, coord: number) => new Promise((resolve) => {
   let c = 0;
   const time = setInterval(() => {
-    c += (+coord / 10);
+    c += coord / 10;
     robot.dragMouse(x, y - c);
 
     if (c === +coord) {
