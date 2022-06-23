@@ -2,6 +2,7 @@
 import robot from 'robotjs';
 import { WebSocketServer, createWebSocketStream } from 'ws';
 import { httpServer } from './src/http_server/index';
+import { moveCircle } from './src/utils/circle';
 import {
   moveDown, moveLeft, moveRight, moveUp,
 } from './src/utils/utils';
@@ -28,6 +29,7 @@ wss.on('connection', (ws) => {
   });
 
   stream.on('end', async () => {
+    if (!data) { return; }
     let { x, y } = robot.getMousePos();
 
     const [command, coord1, coord2] = data.split(' ');
@@ -54,7 +56,7 @@ wss.on('connection', (ws) => {
       robot.moveMouse(x, y);
     }
     if (command === 'mouse_position') {
-      stream.write(`mouse_position ${x}px, ${y}px`);
+      ws.send(`mouse_position ${x},${y}`);
     }
     if (command === 'draw_square') {
       robot.mouseToggle('down');
@@ -75,7 +77,12 @@ wss.on('connection', (ws) => {
         .then(() => robot.mouseToggle('up'));
     }
 
-    ws.send(command);
+    if (command === 'draw_circle') {
+      moveCircle(x, y, width)
+        .then(() => robot.mouseToggle('up'));
+    }
+    // if (!command) { return; }
+    // ws.send(command);
 
     console.log(command, x, y, width, height);
   });

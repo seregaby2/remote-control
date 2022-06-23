@@ -1,6 +1,7 @@
 import robot from 'robotjs';
 
-export const moveRight = (x: number, y: number, coord: number) => new Promise((resolve) => {
+export const moveRight = (x: number, y: number, coord: number)
+: Promise<number> => new Promise((resolve) => {
   let c = 0;
   const time = setInterval(() => {
     c += coord / 10;
@@ -13,7 +14,8 @@ export const moveRight = (x: number, y: number, coord: number) => new Promise((r
   }, 100);
 });
 
-export const moveDown = (x: number, y: number, coord: number) => new Promise((resolve) => {
+export const moveDown = (x: number, y: number, coord: number)
+: Promise<number> => new Promise((resolve) => {
   let c = 0;
   const time = setInterval(() => {
     c += coord / 10;
@@ -26,7 +28,8 @@ export const moveDown = (x: number, y: number, coord: number) => new Promise((re
   }, 100);
 });
 
-export const moveLeft = (x: number, y: number, coord: number) => new Promise((resolve) => {
+export const moveLeft = (x: number, y: number, coord: number)
+: Promise<number> => new Promise((resolve) => {
   let c = 0;
   const time = setInterval(() => {
     c += coord / 10;
@@ -39,7 +42,8 @@ export const moveLeft = (x: number, y: number, coord: number) => new Promise((re
   }, 100);
 });
 
-export const moveUp = (x: number, y: number, coord: number) => new Promise((resolve) => {
+export const moveUp = (x: number, y: number, coord: number)
+: Promise<number> => new Promise((resolve) => {
   let c = 0;
   const time = setInterval(() => {
     c += coord / 10;
