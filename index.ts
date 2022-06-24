@@ -1,12 +1,10 @@
-// import Jimp from 'jimp';
 import robot from 'robotjs';
 import { WebSocketServer, createWebSocketStream } from 'ws';
 import { httpServer } from './src/http_server/index';
 import { moveCircle } from './src/utils/circle';
 import { printScreen } from './src/utils/printScreen';
-import {
-  moveDown, moveLeft, moveRight, moveUp,
-} from './src/utils/rectangle';
+import { rectangle } from './src/utils/rectangle';
+import { square } from './src/utils/square';
 
 const HTTP_PORT = 3000;
 
@@ -62,22 +60,10 @@ wss.on('connection', (ws) => {
       return;
     }
     if (command === 'draw_square') {
-      robot.mouseToggle('down');
-
-      moveRight(x, y, width)
-        .then(() => moveDown(x + width, y, width))
-        .then(() => moveLeft(x + width, y + width, width))
-        .then(() => moveUp(x, y + width, width))
-        .then(() => robot.mouseToggle('up'));
+      square(x, y, width);
     }
     if (command === 'draw_rectangle') {
-      robot.mouseToggle('down');
-
-      moveRight(x, y, width)
-        .then(() => moveDown(x + width, y, height))
-        .then(() => moveLeft(x + width, y + height, width))
-        .then(() => moveUp(x, y + height, height))
-        .then(() => robot.mouseToggle('up'));
+      rectangle(x, y, width, height);
     }
 
     if (command === 'draw_circle') {
