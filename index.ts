@@ -3,9 +3,10 @@ import robot from 'robotjs';
 import { WebSocketServer, createWebSocketStream } from 'ws';
 import { httpServer } from './src/http_server/index';
 import { moveCircle } from './src/utils/circle';
+import { printScreen } from './src/utils/printScreen';
 import {
   moveDown, moveLeft, moveRight, moveUp,
-} from './src/utils/utils';
+} from './src/utils/rectangle';
 
 const HTTP_PORT = 3000;
 
@@ -19,6 +20,7 @@ const wss = new WebSocketServer({
 wss.on('connection', (ws) => {
   const stream = createWebSocketStream(ws, {
     encoding: 'utf8',
+    decodeStrings: false,
   });
 
   let data = '';
@@ -57,6 +59,7 @@ wss.on('connection', (ws) => {
     }
     if (command === 'mouse_position') {
       ws.send(`mouse_position ${x},${y}`);
+      return;
     }
     if (command === 'draw_square') {
       robot.mouseToggle('down');
@@ -81,10 +84,13 @@ wss.on('connection', (ws) => {
       moveCircle(x, y, width)
         .then(() => robot.mouseToggle('up'));
     }
-    // if (!command) { return; }
-    // ws.send(command);
 
-    console.log(command, x, y, width, height);
+    if (command === 'prnt_scrn') {
+      const base64 = await printScreen(x, y);
+      ws.send(`prnt_scrn ${base64}`);
+      return;
+    }
+    ws.send(command);
   });
 
   ws.on('close', () => {

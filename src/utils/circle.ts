@@ -5,7 +5,6 @@ export const moveCircle = (x: number, y: number, r: number)
   let xCoord = x;
   let yCoord = y;
   let fi = 0;
-  let count = 0;
   robot.dragMouse(x - r, y);
   robot.mouseToggle('down');
   const time = setInterval(() => {
@@ -13,8 +12,6 @@ export const moveCircle = (x: number, y: number, r: number)
     xCoord = x - r * Math.cos(fi / 10000);
     yCoord = y - r * Math.sin(fi / 10000);
     robot.dragMouse(xCoord, yCoord);
-    count += 1;
-    console.log(fi, 'fi', Math.floor(Math.PI * 2 * 100) * 100, count);
 
     if (fi > Math.floor(Math.PI * 2 * 100) * 100) {
       clearInterval(time);
